@@ -38,6 +38,7 @@ const FullPlayer = ({ players }) => {
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
                 }}
               >
                 Team
@@ -47,6 +48,7 @@ const FullPlayer = ({ players }) => {
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
                 }}
               >
                 Player Name
@@ -56,15 +58,27 @@ const FullPlayer = ({ players }) => {
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
                 }}
               >
-                Bye-Week
+                POS
               </Th>
               <Th
                 sx={{
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
+                }}
+              >
+                Bye
+              </Th>
+              <Th
+                sx={{
+                  position: 'sticky',
+                  top: '0px',
+                  backgroundColor: 'white',
+                  textAlign: 'center',
                 }}
               >
                 ECR
@@ -74,6 +88,7 @@ const FullPlayer = ({ players }) => {
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
                 }}
               >
                 Value
@@ -83,6 +98,7 @@ const FullPlayer = ({ players }) => {
                   position: 'sticky',
                   top: '0px',
                   backgroundColor: 'white',
+                  textAlign: 'center',
                   zIndex: '1',
                 }}
               >
@@ -92,13 +108,14 @@ const FullPlayer = ({ players }) => {
           </Thead>
           <Tbody>
             {players.map(player => (
-              <Tr key={player.id}>
-                <Td>{player.team}</Td>
-                <Td>{player.name}</Td>
-                <Td>{player.bw}</Td>
-                <Td>{player.ecr}</Td>
-                <Td>{player.value}</Td>
-                <Td>
+              <Tr key={player._id}>
+                <Td sx={{ textAlign: 'center' }}>{player.Tm}</Td>
+                <Td sx={{ textAlign: 'center' }}>{player.Name}</Td>
+                <Td sx={{ textAlign: 'center' }}>{player.Pos}</Td>
+                <Td sx={{ textAlign: 'center' }}>{player.Bye}</Td>
+                <Td sx={{ textAlign: 'center' }}>{player.ECR}</Td>
+                <Td sx={{ textAlign: 'center' }}>{player.Average}</Td>
+                <Td sx={{ textAlign: 'center' }}>
                   <ButtonGroup variant="outline" spacing="0" size="xs">
                     <Button colorScheme="green">+</Button>
                     <Button colorScheme="red">-</Button>
