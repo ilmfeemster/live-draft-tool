@@ -11,7 +11,7 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 
-const FullPlayer = ({ players }) => {
+const FullPlayer = ({ players, onDraft }) => {
   return (
     <Box
       width="80vw"
@@ -117,7 +117,12 @@ const FullPlayer = ({ players }) => {
                 <Td sx={{ textAlign: 'center' }}>{player.Average}</Td>
                 <Td sx={{ textAlign: 'center' }}>
                   <ButtonGroup variant="outline" spacing="0" size="xs">
-                    <Button colorScheme="green">+</Button>
+                    <Button
+                      colorScheme="green"
+                      onClick={() => onDraft(player._id)}
+                    >
+                      +
+                    </Button>
                     <Button colorScheme="red">-</Button>
                   </ButtonGroup>
                 </Td>

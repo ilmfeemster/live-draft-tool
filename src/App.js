@@ -29,6 +29,11 @@ function App() {
       setPlayers(res.data);
     });
   }, []);
+
+  const draftPlayer = id => {
+    setPlayers(players.filter(player => player._id !== id));
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
@@ -37,7 +42,7 @@ function App() {
             <Header />
           </Box>
           <Box display="flex" justifyContent="space-between" height="60vh">
-            <FullPlayer players={players} />
+            <FullPlayer players={players} onDraft={draftPlayer} />
             <YourTeam />
           </Box>
           <Box>
