@@ -126,7 +126,7 @@ function App() {
       case 'K':
         if (kickers.length < 1) {
           setKickers(kickers => [
-            ...kickerss,
+            ...kickers,
             players.filter(player => player._id == id),
           ]);
         } else {
