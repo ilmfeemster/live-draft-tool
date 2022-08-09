@@ -11,10 +11,11 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 
-const FullPlayer = ({ players, onDraft }) => {
+const FullPlayer = ({ players, onDraft, onRemove }) => {
   return (
     <Box
-      width="80vw"
+      width="75vw"
+      overflowX="hidden"
       overflowY="auto"
       css={{
         '&::-webkit-scrollbar': {
@@ -24,7 +25,7 @@ const FullPlayer = ({ players, onDraft }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'gray',
+          background: 'white',
           borderRadius: '24px',
         },
       }}
@@ -123,7 +124,12 @@ const FullPlayer = ({ players, onDraft }) => {
                     >
                       +
                     </Button>
-                    <Button colorScheme="red">-</Button>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => onRemove(player._id)}
+                    >
+                      -
+                    </Button>
                   </ButtonGroup>
                 </Td>
               </Tr>

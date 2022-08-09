@@ -24,7 +24,7 @@ const RoleList = ({ players, role }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'gray',
+          background: 'white',
           borderRadius: '24px',
         },
       }}
