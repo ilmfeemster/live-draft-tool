@@ -15,6 +15,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
     <Box
       overflowY="auto"
       flexGrow="1"
+      style={{ marginTop: '16px' }}
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',

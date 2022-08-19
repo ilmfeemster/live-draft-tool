@@ -187,11 +187,12 @@ function App() {
     <ChakraProvider theme={theme}>
       <div className="App">
         <Flex direction="column">
-          <Flex height="5vh">
-            <Header />
-            <Spacer />
-            <DraftLog loggedPlayers={loggedPlayers} />
-            <UndoButton undo={undoDraft} lastPick={lastPick} />
+          <Flex height="7vh">
+            <Header
+              undoDraft={undoDraft}
+              lastPick={lastPick}
+              loggedPlayers={loggedPlayers}
+            />
           </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">
             <FullPlayer
