@@ -10,11 +10,14 @@ import {
   Grid,
   theme,
   Flex,
+  Spacer,
 } from '@chakra-ui/react';
 import Header from './components/Header';
 import YourTeam from './components/YourTeam';
 import FullPlayer from './components/FullPlayer';
 import RoleList from './components/RoleList';
+import DraftLog from './components/DraftLog';
+import UndoButton from './components/UndoButton';
 import axios from 'axios';
 
 function App() {
@@ -37,6 +40,25 @@ function App() {
     });
   }, []);
 
+  //undo picks
+  //default lastPick to dummy array containing _id until picks are made.
+  let lastPick =
+    loggedPlayers[loggedPlayers.length - 1] !== undefined
+      ? loggedPlayers[loggedPlayers.length - 1]
+      : [{ _id: 1738 }];
+  //undo button function
+  const undoDraft = undoPlayer => {
+    let count = loggedPlayers.length - 1;
+    //set undo player to variable to turn into an object
+    let undonePlayer = undoPlayer[0];
+    //add player back to main list
+    setPlayers(players => [undonePlayer, ...players]);
+    //remove player from draft log
+    setLoggedPlayers(
+      loggedPlayers.filter(loggedPlayer => loggedPlayer !== undoPlayer)
+    );
+  };
+
   //removes player from main store, updating player lists and draftlog
   const removePlayer = id => {
     //removes player from list
@@ -52,6 +74,7 @@ function App() {
   const draftPlayer = id => {
     //assign filter to variable for ease of use in switch case
     let selection = players.filter(player => player._id == id);
+    removePlayer(id);
     //filter returns an array so use [0] to access the properties
     // if statements reflect roster rules(1QB 2RB 2WR 1TE 2Flex 1DST 1Kicker)
     switch (selection[0].Pos) {
@@ -139,7 +162,6 @@ function App() {
       default:
         console.log(selection[0].Pos);
     }
-    removePlayer(id);
   };
 
   // set state for each of the positions
@@ -156,9 +178,12 @@ function App() {
     <ChakraProvider theme={theme}>
       <div className="App">
         <Flex direction="column">
-          <Box height="5vh">
+          <Flex height="5vh">
             <Header />
-          </Box>
+            <Spacer />
+            <DraftLog loggedPlayers={loggedPlayers} />
+            <UndoButton undo={undoDraft} lastPick={lastPick} />
+          </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">
             <FullPlayer
               players={players}
