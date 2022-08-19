@@ -28,9 +28,6 @@ function App() {
   //keep log of removed players
   const [loggedPlayers, setLoggedPlayers] = useState([]);
 
-  //keep log of players drafted to your team
-  const [teamPlayers, setTeamPlayers] = useState([]);
-
   //get players from db
   useEffect(() => {
     axios.get(url).then(res => {
@@ -48,11 +45,22 @@ function App() {
       : [{ _id: 1738 }];
   //undo button function
   const undoDraft = undoPlayer => {
-    let count = loggedPlayers.length - 1;
     //set undo player to variable to turn into an object
     let undonePlayer = undoPlayer[0];
     //add player back to main list
-    setPlayers(players => [undonePlayer, ...players]);
+    setPlayers(players =>
+      [undonePlayer, ...players].sort((a, b) => b.Average - a.Average)
+    );
+    //check team to remove if necessary
+    setQbs(qbs.filter(qb => qb[0]._id !== undonePlayer._id));
+    setRbs(rbs.filter(rb => rb[0]._id !== undonePlayer._id));
+    setWrs(wrs.filter(wr => wr[0]._id !== undonePlayer._id));
+    setTes(tes.filter(te => te[0]._id !== undonePlayer._id));
+    setFlexes(flexes.filter(flex => flex[0]._id !== undonePlayer._id));
+    setDsts(dsts.filter(dst => dst[0]._id !== undonePlayer._id));
+    setKickers(kickers.filter(kicker => kicker[0]._id !== undonePlayer._id));
+    setBenches(benches.filter(bench => bench[0]._id !== undonePlayer._id));
+    // setPlayers([...players].sort((a, b) => b.Average - a.Average));
     //remove player from draft log
     setLoggedPlayers(
       loggedPlayers.filter(loggedPlayer => loggedPlayer !== undoPlayer)
@@ -106,6 +114,7 @@ function App() {
       case 'WR':
         if (wrs.length < 2) {
           setWrs(wrs => [...wrs, players.filter(player => player._id == id)]);
+          console.log(wrs);
         } else if (wrs.length >= 2 && flexes.length < 2) {
           setFlexes(flexes => [
             ...flexes,
