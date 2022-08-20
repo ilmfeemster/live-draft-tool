@@ -16,8 +16,7 @@ import Header from './components/Header';
 import YourTeam from './components/YourTeam';
 import FullPlayer from './components/FullPlayer';
 import RoleList from './components/RoleList';
-import DraftLog from './components/DraftLog';
-import UndoButton from './components/UndoButton';
+import Footer from './components/Footer';
 import axios from 'axios';
 
 function App() {
@@ -219,6 +218,7 @@ function App() {
               <RoleList players={players} role={'QB'} />
             </Flex>
           </Box>
+          <Footer />
         </Flex>
       </div>
     </ChakraProvider>

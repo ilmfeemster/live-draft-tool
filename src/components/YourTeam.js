@@ -15,7 +15,11 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
     <Box
       overflowY="auto"
       flexGrow="1"
-      style={{ marginTop: '16px' }}
+      style={{
+        borderTop: '6px solid',
+        backgroundColor: '#f7f7f7',
+        borderColor: '#f7f7f7',
+      }}
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',
@@ -45,7 +49,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '40px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -56,7 +60,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   textAlign: 'left',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                 }}
               >
                 Player
@@ -67,7 +71,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '44px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >

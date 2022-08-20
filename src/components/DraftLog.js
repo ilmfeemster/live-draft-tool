@@ -11,19 +11,30 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { RiBarChartHorizontalFill } from 'react-icons/ri';
-import React from 'react';
+import { React, useState } from 'react';
 
 const DraftLog = ({ loggedPlayers }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  //set state for mouse hover
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
   return (
     <>
       <Button
         onClick={onOpen}
         style={{
-          backgroundColor: '#7584a4',
+          backgroundColor: isHover ? '#9fb2dd' : '#7584a4',
           color: '#f2f6ff',
           marginTop: '10px',
         }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <RiBarChartHorizontalFill
           style={{

@@ -17,6 +17,11 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
       width="75vw"
       overflowX="hidden"
       overflowY="auto"
+      style={{
+        backgroundColor: '#f7f7f7',
+        borderRight: '1px solid',
+        paddingLeft: '4px',
+      }}
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',
@@ -25,20 +30,26 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'white',
+          background: '#f7f7f7',
           borderRadius: '24px',
         },
       }}
     >
       <TableContainer sx={{ overflow: 'visible' }}>
-        <Table variant="simple">
+        <Table
+          variant="simple"
+          style={{
+            borderCollapse: 'seperate',
+            borderSpacing: '0 10px',
+          }}
+        >
           <Thead>
             <Tr>
               <Th
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -48,7 +59,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -58,7 +69,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -68,7 +79,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -78,7 +89,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -88,7 +99,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                 }}
               >
@@ -98,7 +109,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: 'white',
+                  backgroundColor: '#f7f7f7',
                   textAlign: 'center',
                   zIndex: '1',
                 }}
@@ -107,26 +118,56 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
               </Th>
             </Tr>
           </Thead>
-          <Tbody>
+          <Tbody style={{ backgroundColor: '#c8c8c8' }}>
             {players.map(player => (
               <Tr key={player._id}>
-                <Td sx={{ textAlign: 'center' }}>{player.Tm}</Td>
+                <Td
+                  sx={{
+                    textAlign: 'center',
+                    borderTopLeftRadius: '5px',
+                    borderBottomLeftRadius: '5px',
+                  }}
+                >
+                  {player.Tm}
+                </Td>
                 <Td sx={{ textAlign: 'center' }}>{player.Name}</Td>
                 <Td sx={{ textAlign: 'center' }}>{player.Pos}</Td>
                 <Td sx={{ textAlign: 'center' }}>{player.Bye}</Td>
                 <Td sx={{ textAlign: 'center' }}>{player.ECR}</Td>
-                <Td sx={{ textAlign: 'center' }}>{player.Average}</Td>
-                <Td sx={{ textAlign: 'center' }}>
-                  <ButtonGroup variant="outline" spacing="0" size="xs">
+                <Td
+                  sx={{
+                    textAlign: 'center',
+                  }}
+                >
+                  {player.Average}
+                </Td>
+                <Td
+                  sx={{
+                    textAlign: 'center',
+                    borderTopRightRadius: '5px',
+                    borderBottomRightRadius: '5px',
+                  }}
+                >
+                  <ButtonGroup variant="outline" spacing="1px" size="xs">
                     <Button
                       colorScheme="green"
                       onClick={() => onDraft(player._id)}
+                      style={{
+                        backgroundColor: '#004f2d',
+                        color: 'white',
+                        borderColor: '#004f2d',
+                      }}
                     >
                       +
                     </Button>
                     <Button
                       colorScheme="red"
                       onClick={() => onRemove(player._id)}
+                      style={{
+                        backgroundColor: '#9a031e',
+                        color: 'white',
+                        borderColor: '#9a031e',
+                      }}
                     >
                       -
                     </Button>

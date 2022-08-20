@@ -24,10 +24,11 @@ const RoleList = ({ players, role }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'white',
+          background: '#f7f7f7',
           borderRadius: '24px',
         },
       }}
+      style={{ backgroundColor: '#f7f7f7', borderTop: '1px solid' }}
     >
       <Center>
         <TableContainer sx={{ overflow: 'visible' }}>
@@ -38,7 +39,7 @@ const RoleList = ({ players, role }) => {
                   sx={{
                     position: 'sticky',
                     top: '0px',
-                    backgroundColor: 'white',
+                    backgroundColor: '#f7f7f7',
                     textAlign: 'center',
                   }}
                 >
