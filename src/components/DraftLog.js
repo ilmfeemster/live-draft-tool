@@ -7,7 +7,6 @@ import {
   ModalCloseButton,
   ModalHeader,
   ModalBody,
-  list,
   Center,
 } from '@chakra-ui/react';
 import { RiBarChartHorizontalFill } from 'react-icons/ri';

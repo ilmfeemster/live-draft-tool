@@ -1,17 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-  Flex,
-  Spacer,
-} from '@chakra-ui/react';
+import { ChakraProvider, Box, theme, Flex } from '@chakra-ui/react';
 import Header from './components/Header';
 import YourTeam from './components/YourTeam';
 import FullPlayer from './components/FullPlayer';
