@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import axios from 'axios';
 
 function App() {
-  const url = 'https://live-draft-tool.vercel.app//api/players';
+  const url = 'https://live-draft-tool.vercel.app/api/players';
   //keep log of available players
   const [players, setPlayers] = useState([]);
 
