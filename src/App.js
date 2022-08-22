@@ -205,6 +205,8 @@ function App() {
               <RoleList players={players} role={'WR'} />
               <RoleList players={players} role={'TE'} />
               <RoleList players={players} role={'QB'} />
+              <RoleList players={players} role={'K'} />
+              <RoleList players={players} role={'DST'} />
             </Flex>
           </Box>
           <Footer />
