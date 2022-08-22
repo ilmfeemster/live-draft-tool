@@ -1,3 +1,31 @@
+### live-draft-tool
+##
+
+live-draft-tool is a full stack application that allows me to keep track of draft picks at my live fantasy football draft. Players are kept on a MongoDB database and are rendered using an api route. Drafted players, the draft log, my team, and the undo feature are all managed using react states. It is hosted with vercel and built with the following technologies:
+
+- React
+- JavaScript
+- Next.js
+- ChakraUI
+- MongoDB
+- Express
+- Node.js
+
+Notable features include:
+
+- Undo Function
+- Available players sorted by role
+
+Future features to include:
+
+- Player search
+- Ability to track all teams
+- Custom settings
+- User uploaded values
+- Main list sorting by different values (ADP, Value, PS)
+
+
+##
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
