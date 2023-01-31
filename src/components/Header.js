@@ -6,10 +6,10 @@ import { FaFootballBall } from 'react-icons/fa';
 
 const Header = ({ loggedPlayers, undoDraft, lastPick }) => {
   return (
-    <Flex style={{ backgroundColor: '#14213d', width: '100vw' }}>
+    <Flex style={{ backgroundColor: '#131D2C', width: '100vw' }}>
       <Box
         style={{
-          color: '#f2f6ff',
+          color: '#b9c4d4',
           fontSize: '25px',
           marginLeft: '30px',
         }}
@@ -20,7 +20,7 @@ const Header = ({ loggedPlayers, undoDraft, lastPick }) => {
       </Box>
       <FaFootballBall
         style={{
-          color: '#f2f6ff',
+          color: 'b9c4d4',
           fontSize: '20px',
           margin: '10px 0px 0px 8px',
         }}
