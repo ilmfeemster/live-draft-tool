@@ -174,7 +174,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
-        <Flex direction="column">
+        <Flex direction="column" style={{ backgroundColor: '#0F1A2A' }}>
           <Flex height="7vh">
             <Header
               undoDraft={undoDraft}

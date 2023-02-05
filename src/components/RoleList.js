@@ -43,9 +43,10 @@ const RoleList = ({ players, role }) => {
                   sx={{
                     position: 'sticky',
                     top: '0px',
-                    backgroundColor: '#0F1A2A',
+                    backgroundColor: '#162132',
                     textAlign: 'center',
                     color: '#b9c4d4',
+                    borderRadius: '2px',
                   }}
                 >
                   {role}
@@ -61,6 +62,7 @@ const RoleList = ({ players, role }) => {
                       justifyContent="space-between"
                       bg="#212C3D"
                       color="#b9c4d4"
+                      style={{ borderRadius: '3px', marginBottom: '2px' }}
                     >
                       <Td borderColor="#212C3D" sx={{ textAlign: 'left' }}>
                         {filteredPlayer.Name}

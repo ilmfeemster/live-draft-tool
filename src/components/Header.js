@@ -20,7 +20,7 @@ const Header = ({ loggedPlayers, undoDraft, lastPick }) => {
       </Box>
       <FaFootballBall
         style={{
-          color: 'b9c4d4',
+          color: '#b9c4d4',
           fontSize: '20px',
           margin: '10px 0px 0px 8px',
         }}
