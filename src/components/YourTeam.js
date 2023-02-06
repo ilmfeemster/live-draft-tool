@@ -16,19 +16,19 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
       overflowY="auto"
       flexGrow="1"
       style={{
-        borderTop: '6px solid',
-        backgroundColor: '#f7f7f7',
-        borderColor: '#f7f7f7',
+        border: '6px solid #162132',
+        borderRadius: '20px',
+        backgroundColor: '#212C3D',
       }}
       css={{
         '&::-webkit-scrollbar': {
-          width: '4px',
+          width: '0px',
         },
         '&::-webkit-scrollbar-track': {
-          width: '6px',
+          width: '0px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'white',
+          background: '#212C3D',
           borderRadius: '24px',
         },
       }}
@@ -40,7 +40,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
           width: '100%',
         }}
       >
-        <Table variant="simple" size="sm">
+        <Table variant="simple" size="sm" sx={{ color: '#b9c4d4' }}>
           <Thead>
             <Tr>
               <Th
@@ -49,8 +49,8 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '40px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
-                  textAlign: 'center',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
                 }}
               >
                 POS
@@ -60,7 +60,8 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   textAlign: 'left',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
                 }}
               >
                 Player
@@ -71,8 +72,8 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '44px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
-                  textAlign: 'center',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
                 }}
               >
                 Bye
@@ -95,7 +96,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                     >
                       {yourQb[0].Name}
                     </Td>
-                    <Td>{yourQb[0].Bye}</Td>
+                    <Td sx={{ textAlign: 'right' }}>{yourQb[0].Bye}</Td>
                   </Tr>
                 )
               );
@@ -113,7 +114,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourRb[0].Name}
                 </Td>
-                <Td>{yourRb[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourRb[0].Bye}</Td>
               </Tr>
             ))}
             {rbs.map(yourRb => {
@@ -131,7 +132,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                     >
                       {yourRb[1].Name}
                     </Td>
-                    <Td>{yourRb[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right' }}>{yourRb[1].Bye}</Td>
                   </Tr>
                 );
               }
@@ -149,7 +150,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourWr[0].Name}
                 </Td>
-                <Td>{yourWr[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourWr[0].Bye}</Td>
               </Tr>
             ))}
             {wrs.map(yourWr => {
@@ -167,7 +168,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                     >
                       {yourWr[1].Name}
                     </Td>
-                    <Td>{yourWr[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right' }}>{yourWr[1].Bye}</Td>
                   </Tr>
                 );
               }
@@ -185,7 +186,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourTe[0].Name}
                 </Td>
-                <Td>{yourTe[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourTe[0].Bye}</Td>
               </Tr>
             ))}
             {flexes.map(yourFlex => (
@@ -201,7 +202,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourFlex[0].Name}
                 </Td>
-                <Td>{yourFlex[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourFlex[0].Bye}</Td>
               </Tr>
             ))}
             {flexes.map(yourFlex => {
@@ -219,7 +220,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                     >
                       {yourFlex[1].Name}
                     </Td>
-                    <Td>{yourFlex[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right' }}>{yourFlex[1].Bye}</Td>
                   </Tr>
                 );
               }
@@ -237,7 +238,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourDst[0].Name}
                 </Td>
-                <Td>{yourDst[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourDst[0].Bye}</Td>
               </Tr>
             ))}
             {kickers.map(yourKicker => (
@@ -253,7 +254,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourKicker[0].Name}
                 </Td>
-                <Td>{yourKicker[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourKicker[0].Bye}</Td>
               </Tr>
             ))}
             {benches.map(yourBench => (
@@ -269,7 +270,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                 >
                   {yourBench[0].Name}
                 </Td>
-                <Td>{yourBench[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right' }}>{yourBench[0].Bye}</Td>
               </Tr>
             ))}
           </Tbody>

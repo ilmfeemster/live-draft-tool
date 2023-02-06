@@ -18,8 +18,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
       overflowX="hidden"
       overflowY="auto"
       style={{
-        backgroundColor: '#f7f7f7',
-        borderRight: '1px solid',
+        backgroundColor: '#162132',
         paddingLeft: '4px',
       }}
       css={{
@@ -30,7 +29,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: '#f7f7f7',
+          background: '#162132',
           borderRadius: '24px',
         },
       }}
@@ -49,8 +48,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 Team
@@ -59,8 +60,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 Player Name
@@ -69,8 +72,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 POS
@@ -79,8 +84,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 Bye
@@ -89,8 +96,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 ECR
@@ -99,8 +108,10 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 Value
@@ -109,16 +120,18 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                 sx={{
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#162132',
                   textAlign: 'center',
                   zIndex: '1',
+                  color: '#b9c4d4',
+                  borderColor: '#0F1A2A',
                 }}
               >
                 +/-
               </Th>
             </Tr>
           </Thead>
-          <Tbody style={{ backgroundColor: '#c8c8c8' }}>
+          <Tbody style={{ backgroundColor: '#212C3D', color: '#b9c4d4' }}>
             {players.map(player => (
               <Tr key={player._id}>
                 <Td
@@ -126,17 +139,27 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                     textAlign: 'center',
                     borderTopLeftRadius: '5px',
                     borderBottomLeftRadius: '5px',
+                    borderColor: '#0F1A2A',
                   }}
                 >
                   {player.Tm}
                 </Td>
-                <Td sx={{ textAlign: 'center' }}>{player.Name}</Td>
-                <Td sx={{ textAlign: 'center' }}>{player.Pos}</Td>
-                <Td sx={{ textAlign: 'center' }}>{player.Bye}</Td>
-                <Td sx={{ textAlign: 'center' }}>{player.ECR}</Td>
+                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                  {player.Name}
+                </Td>
+                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                  {player.Pos}
+                </Td>
+                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                  {player.Bye}
+                </Td>
+                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                  {player.ECR}
+                </Td>
                 <Td
                   sx={{
                     textAlign: 'center',
+                    borderColor: '#0F1A2A',
                   }}
                 >
                   {player.Average}
@@ -146,6 +169,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                     textAlign: 'center',
                     borderTopRightRadius: '5px',
                     borderBottomRightRadius: '5px',
+                    borderColor: '#0F1A2A',
                   }}
                 >
                   <ButtonGroup variant="outline" spacing="1px" size="xs">

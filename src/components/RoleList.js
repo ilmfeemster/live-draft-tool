@@ -30,7 +30,7 @@ const RoleList = ({ players, role }) => {
           borderRadius: '24px',
         },
       }}
-      style={{ backgroundColor: '#0F1A2A', borderTop: '1px solid' }}
+      style={{ backgroundColor: '#0F1A2A', borderTop: '3px solid #606f8c66' }}
       sx={{ maxWidth: '17%' }}
     >
       <Center>

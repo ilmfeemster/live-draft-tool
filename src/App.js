@@ -174,7 +174,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
-        <Flex direction="column" style={{ backgroundColor: '#0F1A2A' }}>
+        <Flex direction="column" style={{ backgroundColor: '#162132' }}>
           <Flex height="7vh">
             <Header
               undoDraft={undoDraft}
@@ -183,11 +183,6 @@ function App() {
             />
           </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">
-            <FullPlayer
-              players={players}
-              onDraft={draftPlayer}
-              onRemove={removePlayer}
-            />
             <YourTeam
               qbs={qbs}
               rbs={rbs}
@@ -197,6 +192,11 @@ function App() {
               dsts={dsts}
               kickers={kickers}
               benches={benches}
+            />
+            <FullPlayer
+              players={players}
+              onDraft={draftPlayer}
+              onRemove={removePlayer}
             />
           </Box>
           <Box>
