@@ -20,6 +20,9 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
       style={{
         backgroundColor: '#162132',
         paddingLeft: '4px',
+        borderBottom: '6px solid #162132',
+        borderBottomLeftRadius: '20px',
+        borderBottomRightRadius: '20px',
       }}
       css={{
         '&::-webkit-scrollbar': {

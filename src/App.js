@@ -25,6 +25,35 @@ function App() {
     });
   }, []);
 
+  //keep track of number of team, drafting team, and snake direction
+  const [draftingTeam, setDraftingTeam] = useState(1);
+  const [snakeDirection, setSnakeDirection] = useState('up');
+  const maxTeams = 10;
+
+  //function to change draft team up or down depending on snake direction
+  const snakeSetter = () => {
+    if (draftingTeam === maxTeams && snakeDirection === 'up') {
+      setSnakeDirection('down');
+      setDraftingTeam(maxTeams);
+    } else if (draftingTeam === 1 && snakeDirection === 'down') {
+      setSnakeDirection('up');
+      setDraftingTeam(1);
+    }
+  };
+
+  //function to be called on draft to change draft team
+  const nextTeam = () => {
+    if (snakeDirection === 'up') {
+      console.log(draftingTeam);
+      setDraftingTeam(draftingTeam + 1);
+      snakeSetter();
+    } else {
+      console.log(draftingTeam);
+      setDraftingTeam(draftingTeam - 1);
+      snakeSetter();
+    }
+  };
+
   //undo picks
   //default lastPick to dummy array containing _id until picks are made.
   let lastPick =
@@ -64,6 +93,7 @@ function App() {
       ...loggedPlayers,
       players.filter(player => player._id == id),
     ]);
+    nextTeam();
   };
 
   //adds player to your team
