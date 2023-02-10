@@ -11,7 +11,7 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 
-const FullPlayer = ({ players, onDraft, onRemove }) => {
+const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
   return (
     <Box
       width="75vw"
@@ -129,9 +129,7 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                   color: '#b9c4d4',
                   borderColor: '#0F1A2A',
                 }}
-              >
-                +/-
-              </Th>
+              ></Th>
             </Tr>
           </Thead>
           <Tbody style={{ backgroundColor: '#212C3D', color: '#b9c4d4' }}>
@@ -175,30 +173,18 @@ const FullPlayer = ({ players, onDraft, onRemove }) => {
                     borderColor: '#0F1A2A',
                   }}
                 >
-                  <ButtonGroup variant="outline" spacing="1px" size="xs">
-                    <Button
-                      colorScheme="green"
-                      onClick={() => onDraft(player._id)}
-                      style={{
-                        backgroundColor: '#004f2d',
-                        color: 'white',
-                        borderColor: '#004f2d',
-                      }}
-                    >
-                      +
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      onClick={() => onRemove(player._id)}
-                      style={{
-                        backgroundColor: '#9a031e',
-                        color: 'white',
-                        borderColor: '#9a031e',
-                      }}
-                    >
-                      -
-                    </Button>
-                  </ButtonGroup>
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    onClick={() => onRemove(player._id)}
+                    style={{
+                      backgroundColor: `${draftButtonColor}`,
+                      color: 'white',
+                      borderColor: '#9a031e',
+                    }}
+                  >
+                    Draft
+                  </Button>
                 </Td>
               </Tr>
             ))}

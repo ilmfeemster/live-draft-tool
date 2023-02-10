@@ -16,19 +16,40 @@ function App() {
   //keep log of removed players
   const [loggedPlayers, setLoggedPlayers] = useState([]);
 
-  //get players from db
-  useEffect(() => {
-    axios.get(url).then(res => {
-      //sort by value descending and load to state
-      res.data.sort((a, b) => b.Average - a.Average);
-      setPlayers(res.data);
-    });
-  }, []);
+  //sets button color when your turn to draft
+  const [draftButtonColor, setDraftButtonColor] = useState('#004f2d');
 
-  //keep track of number of team, drafting team, and snake direction
+  //keep track of number of teams, your team, drafting team, and snake direction
   const [draftingTeam, setDraftingTeam] = useState(1);
   const [snakeDirection, setSnakeDirection] = useState('up');
-  const maxTeams = 10;
+  let maxTeams = 3;
+  let yourTeam = 2;
+
+  //function to determine draft button color
+  //even when executing function before everything, state doesn't update in time,
+  //so writing specific function until bugfix or further draft implementation
+  const changeDraftButtonColor = () => {
+    if (
+      (snakeDirection === 'up' && draftingTeam + 1 === yourTeam) ||
+      (snakeDirection === 'down' && draftingTeam - 1 === yourTeam)
+    ) {
+      setDraftButtonColor('#004f2d');
+    } else if (
+      snakeDirection === 'up' &&
+      draftingTeam === yourTeam &&
+      yourTeam === maxTeams
+    ) {
+      setDraftButtonColor('#004f2d');
+    } else if (
+      snakeDirection === 'down' &&
+      draftingTeam === yourTeam &&
+      yourTeam === 1
+    ) {
+      setDraftButtonColor('#004f2d');
+    } else {
+      setDraftButtonColor('#9a031e');
+    }
+  };
 
   //function to change draft team up or down depending on snake direction
   const snakeSetter = () => {
@@ -53,6 +74,22 @@ function App() {
       snakeSetter();
     }
   };
+
+  const initialDraftButton = () => {
+    if (yourTeam > 1) {
+      setDraftButtonColor('#9a031e');
+    }
+  };
+
+  //get players from db
+  useEffect(() => {
+    initialDraftButton();
+    axios.get(url).then(res => {
+      //sort by value descending and load to state
+      res.data.sort((a, b) => b.Average - a.Average);
+      setPlayers(res.data);
+    });
+  }, []);
 
   //undo picks
   //default lastPick to dummy array containing _id until picks are made.
@@ -86,6 +123,7 @@ function App() {
 
   //removes player from main store, updating player lists and draftlog
   const removePlayer = id => {
+    changeDraftButtonColor();
     //removes player from list
     setPlayers(players.filter(player => player._id !== id));
     //adds player to draft log
@@ -93,6 +131,10 @@ function App() {
       ...loggedPlayers,
       players.filter(player => player._id == id),
     ]);
+    //drafts player to your team if it is your turn
+    if (draftingTeam === yourTeam) {
+      draftPlayer(id);
+    }
     nextTeam();
   };
 
@@ -100,7 +142,6 @@ function App() {
   const draftPlayer = id => {
     //assign filter to variable for ease of use in switch case
     let selection = players.filter(player => player._id == id);
-    removePlayer(id);
     //filter returns an array so use [0] to access the properties
     // if statements reflect roster rules(1QB 2RB 2WR 1TE 2Flex 1DST 1Kicker)
     switch (selection[0].Pos) {
@@ -132,7 +173,6 @@ function App() {
       case 'WR':
         if (wrs.length < 2) {
           setWrs(wrs => [...wrs, players.filter(player => player._id == id)]);
-          console.log(wrs);
         } else if (wrs.length >= 2 && flexes.length < 2) {
           setFlexes(flexes => [
             ...flexes,
@@ -227,8 +267,14 @@ function App() {
               players={players}
               onDraft={draftPlayer}
               onRemove={removePlayer}
+              draftButtonColor={draftButtonColor}
             />
           </Box>
+          <Box
+            height="1vh"
+            bg="#0F1A2A"
+            style={{ borderTop: '2px solid #606f8c66' }}
+          ></Box>
           <Box>
             <Flex height="30vh">
               <RoleList players={players} role={'RB'} />

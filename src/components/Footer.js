@@ -10,7 +10,6 @@ const Footer = () => {
         height: '2vh',
         color: '#f7f7f7',
         borderTop: '1px solid #606f8c66',
-        marginTop: '1vh',
       }}
     >
       Site design: Immanuel Matthews-Feemster

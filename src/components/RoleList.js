@@ -9,7 +9,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Spacer,
   Flex,
 } from '@chakra-ui/react';
 
@@ -30,7 +29,10 @@ const RoleList = ({ players, role }) => {
           borderRadius: '24px',
         },
       }}
-      style={{ backgroundColor: '#0F1A2A', borderTop: '3px solid #606f8c66' }}
+      style={{
+        backgroundColor: '#0F1A2A',
+        borderBottom: '6px solid #0F1A2A',
+      }}
       sx={{ maxWidth: '17%' }}
     >
       <Center>
