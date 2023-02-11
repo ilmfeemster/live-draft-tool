@@ -46,7 +46,7 @@ const DraftLog = ({ loggedPlayers }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent style={{ backgroundColor: '#162132', color: '#b9c4d4' }}>
           <ModalHeader>
             <Center>Draft Log</Center>
           </ModalHeader>
