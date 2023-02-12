@@ -10,44 +10,84 @@ import axios from 'axios';
 
 function App() {
   const url = process.env.NEXT_PUBLIC_API_URL;
-  //keep log of available players
   const [players, setPlayers] = useState([]);
-
-  //keep log of removed players
-  const [loggedPlayers, setLoggedPlayers] = useState([]);
-
-  //sets button color when your turn to draft
+  const [draftedPlayers, setDraftedPlayers] = useState([]);
   const [draftButtonColor, setDraftButtonColor] = useState('#004f2d');
-
-  //keep track of number of teams, your team, drafting team, and snake direction
+  const [qbs, setQbs] = useState([]);
+  const [rbs, setRbs] = useState([]);
+  const [wrs, setWrs] = useState([]);
+  const [tes, setTes] = useState([]);
+  const [flexes, setFlexes] = useState([]);
+  const [dsts, setDsts] = useState([]);
+  const [kickers, setKickers] = useState([]);
+  const [benches, setBenches] = useState([]);
   const [draftingTeam, setDraftingTeam] = useState(1);
   const [snakeDirection, setSnakeDirection] = useState('up');
+  const [turnCountdown, setTurnCountdown] = useState(0);
   let maxTeams = 3;
-  let yourTeam = 2;
+  let yourTeam = 1;
 
   //function to determine draft button color
-  //even when executing function before everything, state doesn't update in time,
-  //so writing specific function until bugfix or further draft implementation
+  //even when executing function before everything, state doesn't update in time
+  //writing specific function until bugfix or further draft implementation
   const changeDraftButtonColor = () => {
-    if (
-      (snakeDirection === 'up' && draftingTeam + 1 === yourTeam) ||
-      (snakeDirection === 'down' && draftingTeam - 1 === yourTeam)
-    ) {
-      setDraftButtonColor('#004f2d');
-    } else if (
-      snakeDirection === 'up' &&
-      draftingTeam === yourTeam &&
-      yourTeam === maxTeams
-    ) {
-      setDraftButtonColor('#004f2d');
-    } else if (
-      snakeDirection === 'down' &&
-      draftingTeam === yourTeam &&
-      yourTeam === 1
-    ) {
+    // if (
+    //   (snakeDirection === 'up' && draftingTeam + 1 === yourTeam) ||
+    //   (snakeDirection === 'down' && draftingTeam - 1 === yourTeam)
+    // ) {
+    //   setDraftButtonColor('#004f2d');
+    // } else if (
+    //   snakeDirection === 'up' &&
+    //   draftingTeam === yourTeam &&
+    //   yourTeam === maxTeams
+    // ) {
+    //   setDraftButtonColor('#004f2d');
+    // } else if (
+    //   snakeDirection === 'down' &&
+    //   draftingTeam === yourTeam &&
+    //   yourTeam === 1
+    // ) {
+    //   setDraftButtonColor('#004f2d');
+    // } else {
+    //   setDraftButtonColor('#9a031e');
+    // }
+    if (turnCountdown === 0) {
       setDraftButtonColor('#004f2d');
     } else {
       setDraftButtonColor('#9a031e');
+    }
+  };
+
+  //functions to keep turn logic when using undo button\
+  const countdownLogic = () => {
+    if (snakeDirection === 'up') {
+      console.log(turnCountdown);
+      setTurnCountdown(countdownLogicUp());
+      console.log(turnCountdown);
+    } else {
+      console.log(turnCountdown);
+      setTurnCountdown(countdownLogicDown());
+      console.log(turnCountdown);
+    }
+  };
+
+  const countdownLogicUp = () => {
+    if (yourTeam < draftingTeam) {
+      return maxTeams - yourTeam + (maxTeams - draftingTeam) + 1;
+    } else if (yourTeam > draftingTeam) {
+      return yourTeam - draftingTeam;
+    } else {
+      return 0;
+    }
+  };
+
+  const countdownLogicDown = () => {
+    if (yourTeam > draftingTeam) {
+      return yourTeam + draftingTeam - 1;
+    } else if (yourTeam < draftingTeam) {
+      return draftingTeam - yourTeam;
+    } else {
+      return 0;
     }
   };
 
@@ -65,11 +105,9 @@ function App() {
   //function to be called on draft to change draft team
   const nextTeam = () => {
     if (snakeDirection === 'up') {
-      console.log(draftingTeam);
       setDraftingTeam(draftingTeam + 1);
       snakeSetter();
     } else {
-      console.log(draftingTeam);
       setDraftingTeam(draftingTeam - 1);
       snakeSetter();
     }
@@ -81,8 +119,15 @@ function App() {
     }
   };
 
+  const intialTurnCountdown = () => {
+    if (yourTeam > 1) {
+      setTurnCountdown(yourTeam - 1);
+    }
+  };
+
   //get players from db
   useEffect(() => {
+    intialTurnCountdown();
     initialDraftButton();
     axios.get(url).then(res => {
       //sort by value descending and load to state
@@ -94,11 +139,12 @@ function App() {
   //undo picks
   //default lastPick to dummy array containing _id until picks are made.
   let lastPick =
-    loggedPlayers[loggedPlayers.length - 1] !== undefined
-      ? loggedPlayers[loggedPlayers.length - 1]
+    draftedPlayers[draftedPlayers.length - 1] !== undefined
+      ? draftedPlayers[draftedPlayers.length - 1]
       : [{ _id: 1738 }];
   //undo button function
   const undoDraft = undoPlayer => {
+    countdownLogic();
     //set undo player to variable to turn into an object
     let undonePlayer = undoPlayer[0];
     //add player back to main list
@@ -116,19 +162,20 @@ function App() {
     setBenches(benches.filter(bench => bench[0]._id !== undonePlayer._id));
     // setPlayers([...players].sort((a, b) => b.Average - a.Average));
     //remove player from draft log
-    setLoggedPlayers(
-      loggedPlayers.filter(loggedPlayer => loggedPlayer !== undoPlayer)
+    setDraftedPlayers(
+      draftedPlayers.filter(draftedPlayer => draftedPlayer !== undoPlayer)
     );
   };
 
   //removes player from main store, updating player lists and draftlog
   const removePlayer = id => {
+    countdownLogic();
     changeDraftButtonColor();
     //removes player from list
     setPlayers(players.filter(player => player._id !== id));
     //adds player to draft log
-    setLoggedPlayers(loggedPlayers => [
-      ...loggedPlayers,
+    setDraftedPlayers(draftedPlayers => [
+      ...draftedPlayers,
       players.filter(player => player._id == id),
     ]);
     //drafts player to your team if it is your turn
@@ -231,16 +278,6 @@ function App() {
     }
   };
 
-  // set state for each of the positions
-  const [qbs, setQbs] = useState([]);
-  const [rbs, setRbs] = useState([]);
-  const [wrs, setWrs] = useState([]);
-  const [tes, setTes] = useState([]);
-  const [flexes, setFlexes] = useState([]);
-  const [dsts, setDsts] = useState([]);
-  const [kickers, setKickers] = useState([]);
-  const [benches, setBenches] = useState([]);
-
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
@@ -249,7 +286,7 @@ function App() {
             <Header
               undoDraft={undoDraft}
               lastPick={lastPick}
-              loggedPlayers={loggedPlayers}
+              draftedPlayers={draftedPlayers}
             />
           </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">
@@ -265,7 +302,6 @@ function App() {
             />
             <FullPlayer
               players={players}
-              onDraft={draftPlayer}
               onRemove={removePlayer}
               draftButtonColor={draftButtonColor}
             />

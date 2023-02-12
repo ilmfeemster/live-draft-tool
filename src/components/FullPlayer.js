@@ -8,7 +8,6 @@ import {
   TableContainer,
   Box,
   Button,
-  ButtonGroup,
 } from '@chakra-ui/react';
 
 const FullPlayer = ({ players, onRemove, draftButtonColor }) => {

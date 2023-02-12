@@ -4,7 +4,7 @@ import UndoButton from './UndoButton';
 import { ButtonGroup, Flex, Spacer, Box } from '@chakra-ui/react';
 import { FaFootballBall } from 'react-icons/fa';
 
-const Header = ({ loggedPlayers, undoDraft, lastPick }) => {
+const Header = ({ draftedPlayers, undoDraft, lastPick }) => {
   return (
     <Flex style={{ backgroundColor: '#131D2C', width: '100vw' }}>
       <Box
@@ -31,7 +31,7 @@ const Header = ({ loggedPlayers, undoDraft, lastPick }) => {
           marginRight: '30px',
         }}
       >
-        <DraftLog loggedPlayers={loggedPlayers} />
+        <DraftLog draftedPlayers={draftedPlayers} />
         <UndoButton undoDraft={undoDraft} lastPick={lastPick} />
       </ButtonGroup>
     </Flex>

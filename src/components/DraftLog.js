@@ -12,7 +12,7 @@ import {
 import { RiBarChartHorizontalFill } from 'react-icons/ri';
 import { React, useState } from 'react';
 
-const DraftLog = ({ loggedPlayers }) => {
+const DraftLog = ({ draftedPlayers }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   //set state for mouse hover
   const [isHover, setIsHover] = useState(false);
@@ -53,7 +53,7 @@ const DraftLog = ({ loggedPlayers }) => {
           <ModalCloseButton />
           <ModalBody>
             <ul>
-              {loggedPlayers.map(playerName => (
+              {draftedPlayers.map(playerName => (
                 <li
                   style={{ listStyle: 'none', textAlign: 'center' }}
                   key={playerName[0]._id}
