@@ -23,73 +23,44 @@ function App() {
   const [benches, setBenches] = useState([]);
   const [draftingTeam, setDraftingTeam] = useState(1);
   const [snakeDirection, setSnakeDirection] = useState('up');
-  const [turnCountdown, setTurnCountdown] = useState(0);
+  const [turnCountdown, setTurnCountdown] = useState();
   let maxTeams = 3;
   let yourTeam = 1;
-
-  //function to determine draft button color
-  //even when executing function before everything, state doesn't update in time
-  //writing specific function until bugfix or further draft implementation
-  const changeDraftButtonColor = () => {
-    // if (
-    //   (snakeDirection === 'up' && draftingTeam + 1 === yourTeam) ||
-    //   (snakeDirection === 'down' && draftingTeam - 1 === yourTeam)
-    // ) {
-    //   setDraftButtonColor('#004f2d');
-    // } else if (
-    //   snakeDirection === 'up' &&
-    //   draftingTeam === yourTeam &&
-    //   yourTeam === maxTeams
-    // ) {
-    //   setDraftButtonColor('#004f2d');
-    // } else if (
-    //   snakeDirection === 'down' &&
-    //   draftingTeam === yourTeam &&
-    //   yourTeam === 1
-    // ) {
-    //   setDraftButtonColor('#004f2d');
-    // } else {
-    //   setDraftButtonColor('#9a031e');
-    // }
-    if (turnCountdown === 0) {
-      setDraftButtonColor('#004f2d');
-    } else {
+  //functions to keep track of next draft pick
+  useEffect(() => {
+    if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
+    } else {
+      setDraftButtonColor('#004f2d');
     }
-  };
-
-  //functions to keep turn logic when using undo button\
-  const countdownLogic = () => {
     if (snakeDirection === 'up') {
-      console.log(turnCountdown);
-      setTurnCountdown(countdownLogicUp());
-      console.log(turnCountdown);
+      if (yourTeam < draftingTeam) {
+        setTurnCountdown(maxTeams - draftingTeam + 1);
+      } else if (yourTeam > draftingTeam) {
+        setTurnCountdown(yourTeam - draftingTeam);
+      } else {
+        setTurnCountdown(0);
+      }
+      console.log(turnCountdown, snakeDirection, draftingTeam);
     } else {
-      console.log(turnCountdown);
-      setTurnCountdown(countdownLogicDown());
-      console.log(turnCountdown);
+      if (yourTeam > draftingTeam) {
+        setTurnCountdown(yourTeam + draftingTeam - 1);
+      } else if (yourTeam < draftingTeam) {
+        setTurnCountdown(draftingTeam - yourTeam);
+      } else {
+        setTurnCountdown(0);
+      }
+      console.log(turnCountdown, snakeDirection, draftingTeam);
     }
-  };
-
-  const countdownLogicUp = () => {
-    if (yourTeam < draftingTeam) {
-      return maxTeams - yourTeam + (maxTeams - draftingTeam) + 1;
-    } else if (yourTeam > draftingTeam) {
-      return yourTeam - draftingTeam;
-    } else {
-      return 0;
-    }
-  };
-
-  const countdownLogicDown = () => {
-    if (yourTeam > draftingTeam) {
-      return yourTeam + draftingTeam - 1;
-    } else if (yourTeam < draftingTeam) {
-      return draftingTeam - yourTeam;
-    } else {
-      return 0;
-    }
-  };
+  }, [
+    draftingTeam,
+    yourTeam,
+    maxTeams,
+    snakeDirection,
+    draftButtonColor,
+    turnCountdown,
+  ]);
+  //functions to keep turn logic when using undo button
 
   //function to change draft team up or down depending on snake direction
   const snakeSetter = () => {
@@ -113,6 +84,16 @@ function App() {
     }
   };
 
+  const nextTeamUndo = () => {
+    if (snakeDirection === 'down') {
+      setDraftingTeam(draftingTeam + 1);
+      snakeSetter();
+    } else {
+      setDraftingTeam(draftingTeam - 1);
+      snakeSetter();
+    }
+  };
+
   const initialDraftButton = () => {
     if (yourTeam > 1) {
       setDraftButtonColor('#9a031e');
@@ -120,9 +101,7 @@ function App() {
   };
 
   const intialTurnCountdown = () => {
-    if (yourTeam > 1) {
-      setTurnCountdown(yourTeam - 1);
-    }
+    setTurnCountdown(yourTeam - 1);
   };
 
   //get players from db
@@ -144,7 +123,7 @@ function App() {
       : [{ _id: 1738 }];
   //undo button function
   const undoDraft = undoPlayer => {
-    countdownLogic();
+    nextTeamUndo();
     //set undo player to variable to turn into an object
     let undonePlayer = undoPlayer[0];
     //add player back to main list
@@ -169,8 +148,6 @@ function App() {
 
   //removes player from main store, updating player lists and draftlog
   const removePlayer = id => {
-    countdownLogic();
-    changeDraftButtonColor();
     //removes player from list
     setPlayers(players.filter(player => player._id !== id));
     //adds player to draft log
