@@ -1,12 +1,19 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { ChakraProvider, Box, theme, Flex } from '@chakra-ui/react';
+import {
+  ChakraProvider,
+  Box,
+  theme,
+  Flex,
+  useDisclosure,
+} from '@chakra-ui/react';
 import Header from './components/Header';
 import YourTeam from './components/YourTeam';
 import FullPlayer from './components/FullPlayer';
 import RoleList from './components/RoleList';
 import Footer from './components/Footer';
 import axios from 'axios';
+import InitialForm from './components/InitialForm';
 
 function App() {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -24,8 +31,19 @@ function App() {
   const [draftingTeam, setDraftingTeam] = useState(1);
   const [snakeDirection, setSnakeDirection] = useState('up');
   const [turnCountdown, setTurnCountdown] = useState();
-  let maxTeams = 3;
-  let yourTeam = 1;
+  const [maxTeams, setMaxTeams] = useState(null);
+  const [yourTeam, setYourTeam] = useState(1);
+  const [startDraft, setStartDraft] = useState(false);
+  const { onClose } = useDisclosure();
+
+  //initial draft form submit function
+  const handleSubmit = event => {
+    event.preventDefault();
+    setStartDraft(true);
+    onClose();
+    console.log(maxTeams, yourTeam);
+  };
+
   //functions to keep track of next draft pick
   useEffect(() => {
     if (draftingTeam !== yourTeam) {
@@ -84,36 +102,50 @@ function App() {
     }
   };
 
+  //undo, snake setting, and button color for undo button
+
+  const snakeSetterUndo = () => {
+    if (draftingTeam === maxTeams && snakeDirection === 'down') {
+      setSnakeDirection('up');
+      setDraftingTeam(maxTeams);
+    } else if (draftingTeam === 1 && snakeDirection === 'up') {
+      setSnakeDirection('down');
+      setDraftingTeam(1);
+    }
+  };
+
   const nextTeamUndo = () => {
-    if (snakeDirection === 'down') {
+    if (snakeDirection === 'down' && draftingTeam === maxTeams) {
+      snakeSetterUndo();
+    } else if (snakeDirection === 'up' && draftingTeam === 1) {
+      snakeSetterUndo();
+    } else if (snakeDirection === 'down') {
       setDraftingTeam(draftingTeam + 1);
-      snakeSetter();
+      snakeSetterUndo();
     } else {
       setDraftingTeam(draftingTeam - 1);
-      snakeSetter();
+      snakeSetterUndo();
     }
   };
 
-  const initialDraftButton = () => {
-    if (yourTeam > 1) {
+  const draftButtonColorUndo = () => {
+    if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
+    } else {
+      setDraftButtonColor('#004f2d');
     }
-  };
-
-  const intialTurnCountdown = () => {
-    setTurnCountdown(yourTeam - 1);
   };
 
   //get players from db
   useEffect(() => {
-    intialTurnCountdown();
-    initialDraftButton();
-    axios.get(url).then(res => {
-      //sort by value descending and load to state
-      res.data.sort((a, b) => b.Average - a.Average);
-      setPlayers(res.data);
-    });
-  }, []);
+    if (startDraft) {
+      axios.get(url).then(res => {
+        //sort by value descending and load to state
+        res.data.sort((a, b) => b.Average - a.Average);
+        setPlayers(res.data);
+      });
+    }
+  }, [startDraft]);
 
   //undo picks
   //default lastPick to dummy array containing _id until picks are made.
@@ -124,6 +156,7 @@ function App() {
   //undo button function
   const undoDraft = undoPlayer => {
     nextTeamUndo();
+    draftButtonColorUndo();
     //set undo player to variable to turn into an object
     let undonePlayer = undoPlayer[0];
     //add player back to main list
@@ -258,6 +291,13 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
+        <InitialForm
+          handleSubmit={handleSubmit}
+          maxTeams={maxTeams}
+          yourTeam={yourTeam}
+          setMaxTeams={setMaxTeams}
+          setYourTeam={setYourTeam}
+        />
         <Flex direction="column" style={{ backgroundColor: '#162132' }}>
           <Flex height="7vh">
             <Header
