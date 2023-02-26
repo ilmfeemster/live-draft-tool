@@ -34,6 +34,8 @@ function App() {
   const [maxTeams, setMaxTeams] = useState(null);
   const [yourTeam, setYourTeam] = useState(1);
   const [startDraft, setStartDraft] = useState(false);
+  const [draftRound, setDraftRound] = useState(1);
+  const [draftPick, setDraftPick] = useState(1);
   const { onClose } = useDisclosure();
 
   //initial draft form submit function
@@ -44,7 +46,7 @@ function App() {
     console.log(maxTeams, yourTeam);
   };
 
-  //functions to keep track of next draft pick
+  //keep track of next draft pick
   useEffect(() => {
     if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
@@ -78,9 +80,8 @@ function App() {
     draftButtonColor,
     turnCountdown,
   ]);
-  //functions to keep turn logic when using undo button
 
-  //function to change draft team up or down depending on snake direction
+  //change draft team up or down depending on snake direction
   const snakeSetter = () => {
     if (draftingTeam === maxTeams && snakeDirection === 'up') {
       setSnakeDirection('down');
@@ -91,7 +92,7 @@ function App() {
     }
   };
 
-  //function to be called on draft to change draft team
+  //change draft team
   const nextTeam = () => {
     if (snakeDirection === 'up') {
       setDraftingTeam(draftingTeam + 1);
@@ -102,9 +103,19 @@ function App() {
     }
   };
 
-  //undo, snake setting, and button color for undo button
+  //track pick number
+  const draftNumberCounter = () => {
+    if (draftPick === maxTeams) {
+      setDraftRound(draftRound + 1);
+      setDraftPick(1);
+    } else {
+      setDraftPick(draftPick + 1);
+    }
+  };
 
-  const snakeSetterUndo = () => {
+  //undo, snake setting, pick number, and button color for undo button
+
+  const undoSnakeSetter = () => {
     if (draftingTeam === maxTeams && snakeDirection === 'down') {
       setSnakeDirection('up');
       setDraftingTeam(maxTeams);
@@ -114,26 +125,41 @@ function App() {
     }
   };
 
-  const nextTeamUndo = () => {
+  const undoNextTeam = () => {
     if (snakeDirection === 'down' && draftingTeam === maxTeams) {
-      snakeSetterUndo();
+      undoSnakeSetter();
     } else if (snakeDirection === 'up' && draftingTeam === 1) {
-      snakeSetterUndo();
+      undoSnakeSetter();
     } else if (snakeDirection === 'down') {
       setDraftingTeam(draftingTeam + 1);
-      snakeSetterUndo();
+      undoSnakeSetter();
     } else {
       setDraftingTeam(draftingTeam - 1);
-      snakeSetterUndo();
+      undoSnakeSetter();
     }
   };
 
-  const draftButtonColorUndo = () => {
+  const undoDraftButtonColor = () => {
     if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
     } else {
       setDraftButtonColor('#004f2d');
     }
+  };
+
+  const undoDraftNumberCounter = () => {
+    if (draftPick === 1) {
+      setDraftRound(draftRound - 1);
+      setDraftPick(maxTeams);
+    } else {
+      setDraftPick(draftPick - 1);
+    }
+  };
+
+  const undoFunctions = () => {
+    undoNextTeam();
+    undoDraftButtonColor();
+    undoDraftNumberCounter();
   };
 
   //get players from db
@@ -155,8 +181,7 @@ function App() {
       : [{ _id: 1738 }];
   //undo button function
   const undoDraft = undoPlayer => {
-    nextTeamUndo();
-    draftButtonColorUndo();
+    undoFunctions();
     //set undo player to variable to turn into an object
     let undonePlayer = undoPlayer[0];
     //add player back to main list
@@ -192,6 +217,7 @@ function App() {
     if (draftingTeam === yourTeam) {
       draftPlayer(id);
     }
+    draftNumberCounter();
     nextTeam();
   };
 
@@ -304,6 +330,9 @@ function App() {
               undoDraft={undoDraft}
               lastPick={lastPick}
               draftedPlayers={draftedPlayers}
+              draftRound={draftRound}
+              draftPick={draftPick}
+              turnCountdown={turnCountdown}
             />
           </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">
