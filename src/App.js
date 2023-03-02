@@ -19,7 +19,7 @@ function App() {
   const url = process.env.NEXT_PUBLIC_API_URL;
   const [players, setPlayers] = useState([]);
   const [draftedPlayers, setDraftedPlayers] = useState([]);
-  const [draftButtonColor, setDraftButtonColor] = useState('#004f2d');
+  const [draftButtonColor, setDraftButtonColor] = useState('#04b9a5');
   const [qbs, setQbs] = useState([]);
   const [rbs, setRbs] = useState([]);
   const [wrs, setWrs] = useState([]);
@@ -36,14 +36,46 @@ function App() {
   const [startDraft, setStartDraft] = useState(false);
   const [draftRound, setDraftRound] = useState(1);
   const [draftPick, setDraftPick] = useState(1);
+  const [draftBoard, setDraftBoard] = useState([]);
+  const [draftRounds, setDraftRounds] = useState();
+  //import chakraui modal prop for function passed to modal component
   const { onClose } = useDisclosure();
+
+  const generateDraftBoard = () => {
+    let tempGrid = [];
+    for (let i = 1; i <= draftRounds; i++) {
+      let row = [];
+      for (let j = 1; j <= maxTeams; j++) {
+        if (i % 2 !== 0) {
+          row.push({
+            pickNumber: `${i}.${j}`,
+            name: 'Himothy Turner',
+            team: 'US',
+            pos: 'OG',
+            tileColor: '',
+          });
+        } else {
+          row.unshift({
+            pickNumber: `${i}.${j}`,
+            name: 'Wardell Tarik',
+            team: 'SEN',
+            pos: 'OP',
+            tileColor: '',
+          });
+        }
+      }
+      tempGrid.push(row);
+    }
+    console.log(tempGrid);
+    setDraftBoard(tempGrid);
+  };
 
   //initial draft form submit function
   const handleSubmit = event => {
     event.preventDefault();
     setStartDraft(true);
     onClose();
-    console.log(maxTeams, yourTeam);
+    generateDraftBoard();
   };
 
   //keep track of next draft pick
@@ -51,7 +83,7 @@ function App() {
     if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
     } else {
-      setDraftButtonColor('#004f2d');
+      setDraftButtonColor('#04b9a5');
     }
     if (snakeDirection === 'up') {
       if (yourTeam < draftingTeam) {
@@ -61,7 +93,6 @@ function App() {
       } else {
         setTurnCountdown(0);
       }
-      console.log(turnCountdown, snakeDirection, draftingTeam);
     } else {
       if (yourTeam > draftingTeam) {
         setTurnCountdown(yourTeam + draftingTeam - 1);
@@ -70,7 +101,6 @@ function App() {
       } else {
         setTurnCountdown(0);
       }
-      console.log(turnCountdown, snakeDirection, draftingTeam);
     }
   }, [
     draftingTeam,
@@ -143,7 +173,7 @@ function App() {
     if (draftingTeam !== yourTeam) {
       setDraftButtonColor('#9a031e');
     } else {
-      setDraftButtonColor('#004f2d');
+      setDraftButtonColor('#04b9a5');
     }
   };
 
@@ -323,6 +353,7 @@ function App() {
           yourTeam={yourTeam}
           setMaxTeams={setMaxTeams}
           setYourTeam={setYourTeam}
+          setDraftRounds={setDraftRounds}
         />
         <Flex direction="column" style={{ backgroundColor: '#162132' }}>
           <Flex height="7vh">
@@ -333,6 +364,7 @@ function App() {
               draftRound={draftRound}
               draftPick={draftPick}
               turnCountdown={turnCountdown}
+              draftBoard={draftBoard}
             />
           </Flex>
           <Box display="flex" justifyContent="space-between" height="60vh">

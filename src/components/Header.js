@@ -2,6 +2,7 @@ import React from 'react';
 import DraftLog from './DraftLog';
 import UndoButton from './UndoButton';
 import TurnStats from './TurnStats';
+import DraftBoard from './DraftBoard';
 import { ButtonGroup, Flex, Spacer, Box } from '@chakra-ui/react';
 import { FaFootballBall } from 'react-icons/fa';
 
@@ -12,6 +13,7 @@ const Header = ({
   draftRound,
   draftPick,
   turnCountdown,
+  draftBoard,
 }) => {
   return (
     <Flex style={{ backgroundColor: '#131D2C', width: '100vw' }}>
@@ -45,6 +47,7 @@ const Header = ({
           marginRight: '30px',
         }}
       >
+        <DraftBoard draftBoard={draftBoard} />
         <DraftLog draftedPlayers={draftedPlayers} />
         <UndoButton undoDraft={undoDraft} lastPick={lastPick} />
       </ButtonGroup>

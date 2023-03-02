@@ -9,7 +9,7 @@ import {
   ModalBody,
   Center,
 } from '@chakra-ui/react';
-import { RiBarChartHorizontalFill } from 'react-icons/ri';
+import { CgClipboard } from 'react-icons/cg';
 import { React, useState } from 'react';
 
 const DraftLog = ({ draftedPlayers }) => {
@@ -35,9 +35,9 @@ const DraftLog = ({ draftedPlayers }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <RiBarChartHorizontalFill
+        <CgClipboard
           style={{
-            fontSize: '12px',
+            fontSize: '16px',
             marginRight: '4px',
           }}
         />

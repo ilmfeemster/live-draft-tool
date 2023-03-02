@@ -19,6 +19,7 @@ const InitialForm = ({
   yourTeam,
   setMaxTeams,
   setYourTeam,
+  setDraftRounds,
 }) => {
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
   const [isHover, setIsHover] = useState(false);
@@ -47,7 +48,6 @@ const InitialForm = ({
               <FormLabel textAlign={'center'}>Drafting Teams</FormLabel>
               <NumberInput
                 mb="20px"
-                defaultValue={10}
                 max={20}
                 onChange={value => setMaxTeams(parseInt(value))}
               >
@@ -58,9 +58,18 @@ const InitialForm = ({
               <FormLabel textAlign={'center'}>Your Team #</FormLabel>
               <NumberInput
                 mb="20px"
-                defaultValue={yourTeam}
                 max={20}
                 onChange={value => setYourTeam(parseInt(value))}
+              >
+                <NumberInputField></NumberInputField>
+              </NumberInput>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel textAlign={'center'}>Draft Rounds</FormLabel>
+              <NumberInput
+                mb="20px"
+                max={20}
+                onChange={value => setDraftRounds(parseInt(value))}
               >
                 <NumberInputField></NumberInputField>
               </NumberInput>
