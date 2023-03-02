@@ -49,18 +49,18 @@ function App() {
         if (i % 2 !== 0) {
           row.push({
             pickNumber: `${i}.${j}`,
-            name: 'Himothy Turner',
-            team: 'US',
-            pos: 'OG',
-            tileColor: '',
+            name: '',
+            team: '',
+            pos: '',
+            tileColor: '#7584a4',
           });
         } else {
           row.unshift({
             pickNumber: `${i}.${j}`,
-            name: 'Wardell Tarik',
-            team: 'SEN',
-            pos: 'OP',
-            tileColor: '',
+            name: '',
+            team: '',
+            pos: '',
+            tileColor: '#7584a4',
           });
         }
       }

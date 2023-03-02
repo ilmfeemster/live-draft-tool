@@ -48,7 +48,7 @@ const InitialForm = ({
               <FormLabel textAlign={'center'}>Drafting Teams</FormLabel>
               <NumberInput
                 mb="20px"
-                max={20}
+                max={14}
                 onChange={value => setMaxTeams(parseInt(value))}
               >
                 <NumberInputField></NumberInputField>
@@ -58,7 +58,7 @@ const InitialForm = ({
               <FormLabel textAlign={'center'}>Your Team #</FormLabel>
               <NumberInput
                 mb="20px"
-                max={20}
+                max={14}
                 onChange={value => setYourTeam(parseInt(value))}
               >
                 <NumberInputField></NumberInputField>
