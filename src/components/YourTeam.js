@@ -16,19 +16,19 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
       overflowY="auto"
       flexGrow="1"
       style={{
-        borderTop: '6px solid',
-        backgroundColor: '#f7f7f7',
-        borderColor: '#f7f7f7',
+        border: '6px solid #162132',
+        borderRadius: '20px',
+        backgroundColor: '#212C3D',
       }}
       css={{
         '&::-webkit-scrollbar': {
-          width: '4px',
+          width: '0px',
         },
         '&::-webkit-scrollbar-track': {
-          width: '6px',
+          width: '0px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'white',
+          background: '#212C3D',
           borderRadius: '24px',
         },
       }}
@@ -40,7 +40,7 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
           width: '100%',
         }}
       >
-        <Table variant="simple" size="sm">
+        <Table variant="simple" size="sm" sx={{ color: '#b9c4d4' }}>
           <Thead>
             <Tr>
               <Th
@@ -49,8 +49,9 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '40px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
-                  textAlign: 'center',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
+                  borderColor: '#b9c4d4',
                 }}
               >
                 POS
@@ -60,7 +61,9 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   textAlign: 'left',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
+                  borderColor: '#b9c4d4',
                 }}
               >
                 Player
@@ -71,8 +74,9 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
                   width: '44px',
                   position: 'sticky',
                   top: '0px',
-                  backgroundColor: '#f7f7f7',
-                  textAlign: 'center',
+                  backgroundColor: '#212C3D',
+                  color: '#b9c4d4',
+                  borderColor: '#b9c4d4',
                 }}
               >
                 Bye
@@ -84,192 +88,225 @@ const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
               return (
                 qbs && (
                   <Tr key={yourQb[0]._id}>
-                    <Td>QB</Td>
+                    <Td sx={{ borderColor: '#b9c4d4' }}>QB</Td>
                     <Td
                       sx={{
                         maxWidth: '130px',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'noWrap',
+                        borderColor: '#b9c4d4',
                       }}
                     >
                       {yourQb[0].Name}
                     </Td>
-                    <Td>{yourQb[0].Bye}</Td>
+                    <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                      {yourQb[0].Bye}
+                    </Td>
                   </Tr>
                 )
               );
             })}
             {rbs.map(yourRb => (
               <Tr key={yourRb[0]._id}>
-                <Td>RB</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>RB</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourRb[0].Name}
                 </Td>
-                <Td>{yourRb[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourRb[0].Bye}
+                </Td>
               </Tr>
             ))}
             {rbs.map(yourRb => {
               {
                 rbs.length > 2 && (
                   <Tr key={yourRb[1]._id}>
-                    <Td>RB</Td>
+                    <Td sx={{ borderColor: '#b9c4d4' }}>RB</Td>
                     <Td
                       sx={{
                         maxWidth: '130px',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'noWrap',
+                        borderColor: '#b9c4d4',
                       }}
                     >
                       {yourRb[1].Name}
                     </Td>
-                    <Td>{yourRb[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                      {yourRb[1].Bye}
+                    </Td>
                   </Tr>
                 );
               }
             })}
             {wrs.map(yourWr => (
               <Tr key={yourWr[0]._id}>
-                <Td>WR</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>WR</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourWr[0].Name}
                 </Td>
-                <Td>{yourWr[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourWr[0].Bye}
+                </Td>
               </Tr>
             ))}
             {wrs.map(yourWr => {
               {
                 wrs.length > 2 && (
                   <Tr key={yourWr[1]._id}>
-                    <Td>WR</Td>
+                    <Td sx={{ borderColor: '#b9c4d4' }}>WR</Td>
                     <Td
                       sx={{
                         maxWidth: '130px',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'noWrap',
+                        borderColor: '#b9c4d4',
                       }}
                     >
                       {yourWr[1].Name}
                     </Td>
-                    <Td>{yourWr[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                      {yourWr[1].Bye}
+                    </Td>
                   </Tr>
                 );
               }
             })}
             {tes.map(yourTe => (
               <Tr key={yourTe[0]._id}>
-                <Td>TE</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>TE</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourTe[0].Name}
                 </Td>
-                <Td>{yourTe[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourTe[0].Bye}
+                </Td>
               </Tr>
             ))}
             {flexes.map(yourFlex => (
               <Tr key={yourFlex[0]._id}>
-                <Td>Flex</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>Flex</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourFlex[0].Name}
                 </Td>
-                <Td>{yourFlex[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourFlex[0].Bye}
+                </Td>
               </Tr>
             ))}
             {flexes.map(yourFlex => {
               {
                 flexes > 1 && (
                   <Tr key={yourFlex[1]._id}>
-                    <Td>Flex</Td>
+                    <Td sx={{ borderColor: '#b9c4d4' }}>Flex</Td>
                     <Td
                       sx={{
                         maxWidth: '130px',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'noWrap',
+                        borderColor: '#b9c4d4',
                       }}
                     >
                       {yourFlex[1].Name}
                     </Td>
-                    <Td>{yourFlex[1].Bye}</Td>
+                    <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                      {yourFlex[1].Bye}
+                    </Td>
                   </Tr>
                 );
               }
             })}
             {dsts.map(yourDst => (
               <Tr key={yourDst[0]._id}>
-                <Td>DST</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>DST</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourDst[0].Name}
                 </Td>
-                <Td>{yourDst[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourDst[0].Bye}
+                </Td>
               </Tr>
             ))}
             {kickers.map(yourKicker => (
               <Tr key={yourKicker[0]._id}>
-                <Td>K</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>K</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourKicker[0].Name}
                 </Td>
-                <Td>{yourKicker[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourKicker[0].Bye}
+                </Td>
               </Tr>
             ))}
             {benches.map(yourBench => (
               <Tr key={yourBench[0]._id}>
-                <Td>BN</Td>
+                <Td sx={{ borderColor: '#b9c4d4' }}>BN</Td>
                 <Td
                   sx={{
                     maxWidth: '130px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'noWrap',
+                    borderColor: '#b9c4d4',
                   }}
                 >
                   {yourBench[0].Name}
                 </Td>
-                <Td>{yourBench[0].Bye}</Td>
+                <Td sx={{ textAlign: 'right', borderColor: '#b9c4d4' }}>
+                  {yourBench[0].Bye}
+                </Td>
               </Tr>
             ))}
           </Tbody>

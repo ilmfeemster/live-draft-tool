@@ -9,6 +9,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Flex,
 } from '@chakra-ui/react';
 
 const RoleList = ({ players, role }) => {
@@ -24,11 +25,15 @@ const RoleList = ({ players, role }) => {
           width: '6px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: '#f7f7f7',
+          background: '#0F1A2A',
           borderRadius: '24px',
         },
       }}
-      style={{ backgroundColor: '#f7f7f7', borderTop: '1px solid' }}
+      style={{
+        backgroundColor: '#0F1A2A',
+        borderBottom: '6px solid #0F1A2A',
+      }}
+      sx={{ maxWidth: '17%' }}
     >
       <Center>
         <TableContainer sx={{ overflow: 'visible' }}>
@@ -36,11 +41,14 @@ const RoleList = ({ players, role }) => {
             <Thead>
               <Tr>
                 <Th
+                  borderColor="#0F1A2A"
                   sx={{
                     position: 'sticky',
                     top: '0px',
-                    backgroundColor: '#f7f7f7',
+                    backgroundColor: '#162132',
                     textAlign: 'center',
+                    color: '#b9c4d4',
+                    borderRadius: '2px',
                   }}
                 >
                   {role}
@@ -49,10 +57,25 @@ const RoleList = ({ players, role }) => {
             </Thead>
             <Tbody>
               {players
-                .filter(player => player.Pos == role)
+                .filter(player => player.Pos === role)
                 .map(filteredPlayer => (
                   <Tr key={filteredPlayer._id}>
-                    <Td sx={{ textAlign: 'center' }}>{filteredPlayer.Name}</Td>
+                    <Flex
+                      justifyContent="space-between"
+                      bg="#212C3D"
+                      color="#b9c4d4"
+                      style={{ borderRadius: '3px', marginBottom: '2px' }}
+                    >
+                      <Td borderColor="#212C3D" sx={{ textAlign: 'left' }}>
+                        {filteredPlayer.Name}
+                      </Td>
+                      <Td
+                        borderColor="#212C3D"
+                        sx={{ textAlign: 'left', minWidth: '60px' }}
+                      >
+                        {filteredPlayer.Tm}
+                      </Td>
+                    </Flex>
                   </Tr>
                 ))}
             </Tbody>

@@ -9,10 +9,10 @@ import {
   ModalBody,
   Center,
 } from '@chakra-ui/react';
-import { RiBarChartHorizontalFill } from 'react-icons/ri';
+import { CgClipboard } from 'react-icons/cg';
 import { React, useState } from 'react';
 
-const DraftLog = ({ loggedPlayers }) => {
+const DraftLog = ({ draftedPlayers }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   //set state for mouse hover
   const [isHover, setIsHover] = useState(false);
@@ -35,9 +35,9 @@ const DraftLog = ({ loggedPlayers }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <RiBarChartHorizontalFill
+        <CgClipboard
           style={{
-            fontSize: '12px',
+            fontSize: '16px',
             marginRight: '4px',
           }}
         />
@@ -46,14 +46,14 @@ const DraftLog = ({ loggedPlayers }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent style={{ backgroundColor: '#162132', color: '#b9c4d4' }}>
           <ModalHeader>
             <Center>Draft Log</Center>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <ul>
-              {loggedPlayers.map(playerName => (
+              {draftedPlayers.map(playerName => (
                 <li
                   style={{ listStyle: 'none', textAlign: 'center' }}
                   key={playerName[0]._id}
