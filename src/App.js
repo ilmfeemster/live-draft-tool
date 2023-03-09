@@ -28,6 +28,7 @@ function App() {
   const [dsts, setDsts] = useState([]);
   const [kickers, setKickers] = useState([]);
   const [benches, setBenches] = useState([]);
+  const [draftedPlayer, setDraftedPlayer] = useState();
   const [draftingTeam, setDraftingTeam] = useState(1);
   const [snakeDirection, setSnakeDirection] = useState('up');
   const [turnCountdown, setTurnCountdown] = useState();
@@ -36,13 +37,15 @@ function App() {
   const [startDraft, setStartDraft] = useState(false);
   const [draftRound, setDraftRound] = useState(1);
   const [draftPick, setDraftPick] = useState(1);
+  const [lastDraftRound, setLastDraftRound] = useState();
+  const [lastDraftPick, setLastDraftPick] = useState();
   const [draftBoard, setDraftBoard] = useState([]);
   const [draftRounds, setDraftRounds] = useState();
   //import chakraui modal prop for function passed to modal component
   const { onClose } = useDisclosure();
 
   const generateDraftBoard = () => {
-    let tempGrid = [];
+    let startGrid = [];
     for (let i = 1; i <= draftRounds; i++) {
       let row = [];
       for (let j = 1; j <= maxTeams; j++) {
@@ -52,7 +55,7 @@ function App() {
             name: '',
             team: '',
             pos: '',
-            tileColor: '#7584a4',
+            tileColor: '#5e6d8b',
           });
         } else {
           row.unshift({
@@ -60,14 +63,13 @@ function App() {
             name: '',
             team: '',
             pos: '',
-            tileColor: '#7584a4',
+            tileColor: '#5e6d8b',
           });
         }
       }
-      tempGrid.push(row);
+      startGrid.push(row);
     }
-    console.log(tempGrid);
-    setDraftBoard(tempGrid);
+    setDraftBoard(startGrid);
   };
 
   //initial draft form submit function
@@ -76,6 +78,22 @@ function App() {
     setStartDraft(true);
     onClose();
     generateDraftBoard();
+  };
+
+  const draftBoardTileColor = role => {
+    if (role === 'RB') {
+      return '#8df1ca';
+    } else if (role === 'WR') {
+      return '#55c9f8';
+    } else if (role === 'TE') {
+      return '#ffae58';
+    } else if (role === 'QB') {
+      return '#ef74a2';
+    } else if (role === 'DST') {
+      return '#be745d';
+    } else {
+      return ' #b4b9fe';
+    }
   };
 
   //keep track of next draft pick
@@ -186,10 +204,38 @@ function App() {
     }
   };
 
+  const undoLastDraftNumberCounter = () => {
+    if (lastDraftPick === 1) {
+      setLastDraftRound(lastDraftRound - 1);
+      setLastDraftPick(maxTeams);
+    } else {
+      setLastDraftPick(lastDraftPick - 1);
+    }
+  };
+
+  const undoDraftBoard = () => {
+    const nextDraftBoard = draftBoard.map(row => {
+      return row.map(player => {
+        if (player.pickNumber === `${lastDraftRound}.${lastDraftPick}`) {
+          player.name = '';
+          player.team = '';
+          player.pos = '';
+          player.tileColor = '#5e6d8b';
+          return player;
+        } else {
+          return player;
+        }
+      });
+    });
+    setDraftBoard(nextDraftBoard);
+    undoLastDraftNumberCounter();
+  };
+
   const undoFunctions = () => {
     undoNextTeam();
     undoDraftButtonColor();
     undoDraftNumberCounter();
+    undoDraftBoard();
   };
 
   //get players from db
@@ -236,17 +282,32 @@ function App() {
 
   //removes player from main store, updating player lists and draftlog
   const removePlayer = id => {
+    let thisPlayer = players.filter(player => player._id == id);
+    setDraftedPlayer(thisPlayer);
     //removes player from list
     setPlayers(players.filter(player => player._id !== id));
     //adds player to draft log
-    setDraftedPlayers(draftedPlayers => [
-      ...draftedPlayers,
-      players.filter(player => player._id == id),
-    ]);
+    setDraftedPlayers(draftedPlayers => [...draftedPlayers, thisPlayer]);
     //drafts player to your team if it is your turn
     if (draftingTeam === yourTeam) {
       draftPlayer(id);
     }
+    const nextDraftBoard = draftBoard.map(row => {
+      return row.map(player => {
+        if (player.pickNumber === `${draftRound}.${draftPick}`) {
+          player.name = thisPlayer[0].Name;
+          player.team = `${thisPlayer[0].Tm} • `;
+          player.pos = thisPlayer[0].Pos;
+          player.tileColor = draftBoardTileColor(thisPlayer[0].Pos);
+          return player;
+        } else {
+          return player;
+        }
+      });
+    });
+    setLastDraftRound(draftRound);
+    setLastDraftPick(draftPick);
+    setDraftBoard(nextDraftBoard);
     draftNumberCounter();
     nextTeam();
   };

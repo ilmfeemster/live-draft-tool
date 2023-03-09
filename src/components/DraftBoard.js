@@ -57,28 +57,44 @@ const DraftBoard = ({ draftBoard }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex direction={'column'} gap={'3px'}>
+            <Flex direction={'column'} gap={'3px'} color={'#012047'}>
               {draftBoard.map(draftRow => (
                 <Flex justify={'center'} gap={'3px'}>
                   {draftRow.map(draftCell => (
                     <Flex
                       bg={`${draftCell.tileColor}`}
                       direction={'column'}
+                      justify={'space-between'}
                       minH={'48px'}
+                      minW={'120px'}
+                      maxW={'120px'}
                       style={{
                         border: '1px solid  black',
                         minWidth: '120px',
                         borderRadius: '4px',
                       }}
                     >
-                      <Flex justify="space-between" minW="100px">
+                      <Flex
+                        justify="space-between"
+                        minW="100px"
+                        pl={'4px'}
+                        pr={'4px'}
+                      >
                         <Box fontSize={'12px'}>({draftCell.pickNumber})</Box>{' '}
                         <Box>
                           {draftCell.team}
                           {draftCell.pos}
                         </Box>
                       </Flex>
-                      <Box>{draftCell.name}</Box>
+                      <Box
+                        pl={'4px'}
+                        pr={'4px'}
+                        overflowX={'hidden'}
+                        whiteSpace={'nowrap'}
+                        sx={{ textOverflow: 'ellipsis' }}
+                      >
+                        {draftCell.name}
+                      </Box>
                     </Flex>
                   ))}
                 </Flex>
