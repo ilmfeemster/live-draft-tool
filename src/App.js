@@ -6,6 +6,7 @@ import {
   theme,
   Flex,
   useDisclosure,
+  Show,
 } from '@chakra-ui/react';
 import Header from './components/Header';
 import YourTeam from './components/YourTeam';
@@ -14,6 +15,7 @@ import RoleList from './components/RoleList';
 import Footer from './components/Footer';
 import axios from 'axios';
 import InitialForm from './components/InitialForm';
+import MobileHeader from './components/MobileHeader';
 
 function App() {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -416,9 +418,26 @@ function App() {
           setYourTeam={setYourTeam}
           setDraftRounds={setDraftRounds}
         />
-        <Flex direction="column" style={{ backgroundColor: '#162132' }}>
-          <Flex height="7vh">
-            <Header
+        <Flex
+          direction="column"
+          h="100vh"
+          style={{ backgroundColor: '#162132' }}
+        >
+          <Show above="lg">
+            <Flex height="62px">
+              <Header
+                undoDraft={undoDraft}
+                lastPick={lastPick}
+                draftedPlayers={draftedPlayers}
+                draftRound={draftRound}
+                draftPick={draftPick}
+                turnCountdown={turnCountdown}
+                draftBoard={draftBoard}
+              />
+            </Flex>
+          </Show>
+          <Show below="lg">
+            <MobileHeader
               undoDraft={undoDraft}
               lastPick={lastPick}
               draftedPlayers={draftedPlayers}
@@ -427,39 +446,43 @@ function App() {
               turnCountdown={turnCountdown}
               draftBoard={draftBoard}
             />
-          </Flex>
-          <Box display="flex" justifyContent="space-between" height="60vh">
-            <YourTeam
-              qbs={qbs}
-              rbs={rbs}
-              wrs={wrs}
-              tes={tes}
-              flexes={flexes}
-              dsts={dsts}
-              kickers={kickers}
-              benches={benches}
-            />
+          </Show>
+          <Flex justifyContent="space-between" h="400px" flexGrow="1">
+            <Show above="lg">
+              <YourTeam
+                qbs={qbs}
+                rbs={rbs}
+                wrs={wrs}
+                tes={tes}
+                flexes={flexes}
+                dsts={dsts}
+                kickers={kickers}
+                benches={benches}
+              />
+            </Show>
             <FullPlayer
               players={players}
               onRemove={removePlayer}
               draftButtonColor={draftButtonColor}
             />
-          </Box>
-          <Box
-            height="1vh"
-            bg="#0F1A2A"
-            style={{ borderTop: '2px solid #606f8c66' }}
-          ></Box>
-          <Box>
-            <Flex height="30vh">
-              <RoleList players={players} role={'RB'} />
-              <RoleList players={players} role={'WR'} />
-              <RoleList players={players} role={'TE'} />
-              <RoleList players={players} role={'QB'} />
-              <RoleList players={players} role={'K'} />
-              <RoleList players={players} role={'DST'} />
-            </Flex>
-          </Box>
+          </Flex>
+          <Show above="xl">
+            <Box
+              height="1vh"
+              bg="#0F1A2A"
+              style={{ borderTop: '2px solid #606f8c66' }}
+            ></Box>
+            <Box>
+              <Flex>
+                <RoleList players={players} role={'RB'} />
+                <RoleList players={players} role={'WR'} />
+                <RoleList players={players} role={'TE'} />
+                <RoleList players={players} role={'QB'} />
+                <RoleList players={players} role={'K'} />
+                <RoleList players={players} role={'DST'} />
+              </Flex>
+            </Box>
+          </Show>
           <Footer />
         </Flex>
       </div>

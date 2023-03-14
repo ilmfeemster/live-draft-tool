@@ -27,6 +27,7 @@ const DraftLog = ({ draftedPlayers }) => {
     <>
       <Button
         onClick={onOpen}
+        size={{ base: 'xs', sm: 'sm', md: 'md' }}
         style={{
           backgroundColor: isHover ? '#9fb2dd' : '#7584a4',
           color: '#f2f6ff',

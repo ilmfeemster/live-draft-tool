@@ -16,6 +16,7 @@ const UndoButton = ({ undoDraft, lastPick }) => {
   return (
     <Button
       onClick={lastPick[0]._id !== 1738 ? () => undoDraft(lastPick) : undefined}
+      size={{ base: 'xs', sm: 'sm', md: 'md' }}
       style={{
         backgroundColor: isHover ? '#9fb2dd' : '#7584a4',
         color: '#f2f6ff',

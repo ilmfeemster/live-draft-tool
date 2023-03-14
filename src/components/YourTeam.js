@@ -13,6 +13,8 @@ import { React } from 'react';
 const YourTeam = ({ qbs, rbs, wrs, tes, flexes, dsts, kickers, benches }) => {
   return (
     <Box
+      maxH="100%"
+      maxW="25vw"
       overflowY="auto"
       flexGrow="1"
       style={{

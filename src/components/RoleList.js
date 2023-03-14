@@ -10,6 +10,7 @@ import {
   Td,
   TableContainer,
   Flex,
+  Show,
 } from '@chakra-ui/react';
 
 const RoleList = ({ players, role }) => {
@@ -17,6 +18,7 @@ const RoleList = ({ players, role }) => {
     <Box
       overflowY="auto"
       flexGrow="1"
+      h="200px"
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',
@@ -69,12 +71,14 @@ const RoleList = ({ players, role }) => {
                       <Td borderColor="#212C3D" sx={{ textAlign: 'left' }}>
                         {filteredPlayer.Name}
                       </Td>
-                      <Td
-                        borderColor="#212C3D"
-                        sx={{ textAlign: 'left', minWidth: '60px' }}
-                      >
-                        {filteredPlayer.Tm}
-                      </Td>
+                      <Show above="2xl">
+                        <Td
+                          borderColor="#212C3D"
+                          sx={{ textAlign: 'left', minWidth: '60px' }}
+                        >
+                          {filteredPlayer.Tm}
+                        </Td>
+                      </Show>
                     </Flex>
                   </Tr>
                 ))}

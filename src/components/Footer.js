@@ -7,7 +7,7 @@ const Footer = () => {
       style={{
         fontSize: '12px',
         backgroundColor: '#0F1A2A',
-        height: '2vh',
+        height: '18px',
         color: '#f7f7f7',
         borderTop: '1px solid #606f8c66',
       }}

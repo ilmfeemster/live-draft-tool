@@ -20,8 +20,8 @@ const Header = ({
       <Box
         style={{
           color: '#b9c4d4',
-          fontSize: '25px',
-          marginLeft: '30px',
+          fontSize: '20px',
+          marginLeft: '8px',
         }}
       >
         Live Draft Tool

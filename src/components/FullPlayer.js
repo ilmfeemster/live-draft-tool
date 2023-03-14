@@ -8,12 +8,14 @@ import {
   TableContainer,
   Box,
   Button,
+  Show,
 } from '@chakra-ui/react';
 
 const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
   return (
     <Box
-      width="75vw"
+      h="100%"
+      flexGrow="1"
       overflowX="hidden"
       overflowY="auto"
       style={{
@@ -47,6 +49,7 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
           <Thead>
             <Tr>
               <Th
+                maxW={{ base: '60px', lg: '80px' }}
                 sx={{
                   position: 'sticky',
                   top: '0px',
@@ -59,6 +62,7 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
                 Team
               </Th>
               <Th
+                maxW={{ base: '200px', lg: '360px' }}
                 sx={{
                   position: 'sticky',
                   top: '0px',
@@ -71,6 +75,7 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
                 Player Name
               </Th>
               <Th
+                maxW={{ base: '60px', lg: '80px' }}
                 sx={{
                   position: 'sticky',
                   top: '0px',
@@ -82,42 +87,46 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
               >
                 POS
               </Th>
-              <Th
-                sx={{
-                  position: 'sticky',
-                  top: '0px',
-                  backgroundColor: '#162132',
-                  textAlign: 'center',
-                  color: '#b9c4d4',
-                  borderColor: '#0F1A2A',
-                }}
-              >
-                Bye
-              </Th>
-              <Th
-                sx={{
-                  position: 'sticky',
-                  top: '0px',
-                  backgroundColor: '#162132',
-                  textAlign: 'center',
-                  color: '#b9c4d4',
-                  borderColor: '#0F1A2A',
-                }}
-              >
-                ECR
-              </Th>
-              <Th
-                sx={{
-                  position: 'sticky',
-                  top: '0px',
-                  backgroundColor: '#162132',
-                  textAlign: 'center',
-                  color: '#b9c4d4',
-                  borderColor: '#0F1A2A',
-                }}
-              >
-                Value
-              </Th>
+              <Show above="sm">
+                <Th
+                  sx={{
+                    position: 'sticky',
+                    top: '0px',
+                    backgroundColor: '#162132',
+                    textAlign: 'center',
+                    color: '#b9c4d4',
+                    borderColor: '#0F1A2A',
+                  }}
+                >
+                  Bye
+                </Th>
+              </Show>
+              <Show above="md">
+                <Th
+                  sx={{
+                    position: 'sticky',
+                    top: '0px',
+                    backgroundColor: '#162132',
+                    textAlign: 'center',
+                    color: '#b9c4d4',
+                    borderColor: '#0F1A2A',
+                  }}
+                >
+                  ECR
+                </Th>
+                <Th
+                  sx={{
+                    position: 'sticky',
+                    top: '0px',
+                    backgroundColor: '#162132',
+                    textAlign: 'center',
+                    color: '#b9c4d4',
+                    borderColor: '#0F1A2A',
+                  }}
+                >
+                  Value
+                </Th>
+              </Show>
               <Th
                 sx={{
                   position: 'sticky',
@@ -135,6 +144,7 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
             {players.map(player => (
               <Tr key={player._id}>
                 <Td
+                  maxW={{ base: '60px', lg: '80px' }}
                   sx={{
                     textAlign: 'center',
                     borderTopLeftRadius: '5px',
@@ -144,26 +154,36 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
                 >
                   {player.Tm}
                 </Td>
-                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                <Td
+                  maxW={{ base: '180px', lg: '360px' }}
+                  sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}
+                >
                   {player.Name}
                 </Td>
-                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                <Td
+                  maxW={{ base: '60px', lg: '80px' }}
+                  sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}
+                >
                   {player.Pos}
                 </Td>
-                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
-                  {player.Bye}
-                </Td>
-                <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
-                  {player.ECR}
-                </Td>
-                <Td
-                  sx={{
-                    textAlign: 'center',
-                    borderColor: '#0F1A2A',
-                  }}
-                >
-                  {player.Average}
-                </Td>
+                <Show above="sm">
+                  <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                    {player.Bye}
+                  </Td>
+                </Show>
+                <Show above="md">
+                  <Td sx={{ textAlign: 'center', borderColor: '#0F1A2A' }}>
+                    {player.ECR}
+                  </Td>
+                  <Td
+                    sx={{
+                      textAlign: 'center',
+                      borderColor: '#0F1A2A',
+                    }}
+                  >
+                    {player.Average}
+                  </Td>
+                </Show>
                 <Td
                   sx={{
                     textAlign: 'center',
@@ -174,7 +194,7 @@ const FullPlayer = ({ players, onRemove, draftButtonColor }) => {
                 >
                   <Button
                     colorScheme="red"
-                    size="sm"
+                    size={{ base: 'xs', md: 'sm' }}
                     onClick={() => onRemove(player._id)}
                     style={{
                       backgroundColor: `${draftButtonColor}`,
