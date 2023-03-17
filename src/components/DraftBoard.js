@@ -47,7 +47,7 @@ const DraftBoard = ({ draftBoard }) => {
         Draft Board
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent
           maxW="100vw"
@@ -60,7 +60,12 @@ const DraftBoard = ({ draftBoard }) => {
           <ModalBody>
             <Flex direction={'column'} gap={'3px'} color={'#012047'}>
               {draftBoard.map(draftRow => (
-                <Flex justify={'center'} gap={'3px'}>
+                <Flex
+                  justify={'center'}
+                  gap={'3px'}
+                  margin="auto"
+                  paddingRight="24px"
+                >
                   {draftRow.map(draftCell => (
                     <Flex
                       bg={`${draftCell.tileColor}`}

@@ -45,7 +45,7 @@ const DraftLog = ({ draftedPlayers }) => {
         Draft Log
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent style={{ backgroundColor: '#162132', color: '#b9c4d4' }}>
           <ModalHeader>
